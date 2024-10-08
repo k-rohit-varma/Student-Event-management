@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Event</title>
+    <link rel="stylesheet" href="../css/add-event.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Add New Event</h1>
+        <form id="event-form">
+            <label for="event-name">Event Name:</label>
+            <input type="text" id="event-name" name="event-name" required>
+
+            <label for="event-date">Date:</label>
+            <input type="date" id="event-date" name="event-date" required>
+
+            <label for="event-time">Time:</label>
+            <input type="time" id="event-time" name="event-time" required>
+
+            <label for="event-room">Room:</label>
+            <input type="text" id="event-room" name="event-room" required>
+
+            <label for="event-type">Type of Event:</label>
+            <select id="event-type" name="event-type" required>
+                <option value="" disabled selected>Select an event type</option>
+                <option value="Meeting">Tech</option>
+                <option value="Workshop">Workshop</option>
+                <option value="Conference">Conference</option>
+                <option value="Seminar">Seminar</option>
+                <option value="Social">Social</option>
+            </select>
+
+            <button type="submit">Add Event</button>
+        </form>
+        <p id="success-message" class="hidden"></p>
+        <a href="user.html" class="home-button">Back to Events</a>
+    </div>
+
+    <script>
+        document.getElementById('event-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Gather form data
+            const eventName = document.getElementById('event-name').value;
+            const eventDate = document.getElementById('event-date').value;
+            const eventTime = document.getElementById('event-time').value;
+            const eventRoom = document.getElementById('event-room').value;
+            const eventType = document.getElementById('event-type').value; // Get the event type
+
+            // Create event object
+            const newEvent = {
+                name: eventName,
+                date: eventDate,
+                time: eventTime,
+                room: eventRoom,
+                type: eventType // Include event type
+            };
+
+            // Retrieve existing events from local storage
+            const events = JSON.parse(localStorage.getItem('events')) || [];
+            events.push(newEvent); // Add the new event
+            localStorage.setItem('events', JSON.stringify(events)); // Store it back
+
+            // Show success message
+            document.getElementById('success-message').innerText = `Event "${eventName}" added successfully!`;
+            document.getElementById('success-message').classList.remove('hidden');
+            document.getElementById('event-form').reset(); // Clear the form
+        });
+    </script>
+</body>
+</html>

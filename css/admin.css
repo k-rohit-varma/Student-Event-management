@@ -1,0 +1,89 @@
+/* common.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="time"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.hidden {
+    display: none;
+}
+
+.event {
+    border: 1px solid #ccc;
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.register-button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.register-button:hover {
+    background-color: #218838;
+}
+
+.logout-button {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #007BFF;
+}
+
+.logout-button:hover {
+    text-decoration: underline;
+}
+
+#error-message {
+    color: red;
+    margin: 10px 0;
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Event Registration</title>
+    <link rel="stylesheet" href="../css/user.css">
+</head>
+<body>
+    <div class="container">
+        <button onclick="logout()" class="logout-button">Logout</button> <!-- Logout button -->
+        <h1>Event Registration</h1>
+        <div class="event-details">
+            <h2>Upcoming Events</h2>
+            <div id="event-list"></div>
+        </div>
+        <p id="student-email" class="email-display"></p>
+        <button onclick="viewRegisteredEvents()" class="view-registered-button">View Registered Events</button> <!-- New button -->
+    </div>
+    
+    <script>
+        function logout() {
+            localStorage.removeItem('studentEmail'); // Clear email on logout
+            window.location.href = 'home.html'; // Redirect to home page
+        }
+
+        // Display the logged-in student's email
+        const email = localStorage.getItem('studentEmail');
+        document.getElementById('student-email').innerText = `Logged in as: ${email}`;
+
+        // Retrieve events from local storage and display them
+        const events = JSON.parse(localStorage.getItem('events')) || [];
+        const eventListContainer = document.getElementById('event-list');
+
+        if (events.length === 0) {
+            eventListContainer.innerHTML = '<p>No events available.</p>';
+        } else {
+            events.forEach((event, index) => {
+                const eventDiv = document.createElement('div');
+                eventDiv.classList.add('event');
+                eventDiv.innerHTML = `
+                    <h3>${event.name}</h3>
+                    <p><strong>Date:</strong> ${event.date}</p>
+                    <p><strong>Time:</strong> ${event.time}</p>
+                    <p><strong>Room:</strong> ${event.room}</p>
+                    <p><strong>Type:</strong> ${event.type}</p>
+                    <a href="#" class="register-button" data-event-name="${event.name}">Register</a>
+                `;
+                eventListContainer.appendChild(eventDiv);
+            });
+        }
+
+        // Event registration logic
+        const registerButtons = document.querySelectorAll('.register-button');
+        registerButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const eventName = this.getAttribute('data-event-name');
+                
+                if (email && eventName) {
+                    const registrationKey = `${email}-${eventName}`;
+                    const registrations = JSON.parse(localStorage.getItem('registeredEvents')) || {};
+
+                    registrations[registrationKey] = { eventName };
+                    localStorage.setItem('registeredEvents', JSON.stringify(registrations));
+
+                    // Redirect to success page
+                    window.location.href = `registration-success.html?event=${encodeURIComponent(eventName)}`;
+                } else {
+                    alert("Registration failed. Please try again.");
+                }
+            });
+        });
+
+        // Function to view registered events
+        function viewRegisteredEvents() {
+            window.location.href = 'registered-events.html'; // Redirect to registered events page
+        }
+    </script>
+</body>
+</html>

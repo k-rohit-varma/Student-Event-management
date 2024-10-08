@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Login</h1>
+        <form id="admin-login-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <p id="login-message" class="hidden"></p>
+    </div>
+
+    <script>
+        document.getElementById('admin-login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Basic admin credentials
+            const adminUsername = 'admin';
+            const adminPassword = 'admin123'; // Change this in a real application
+
+            if (username === adminUsername && password === adminPassword) {
+                localStorage.setItem('isAdmin', 'true');
+                window.location.href = 'admin-dashboard.html'; // Redirect to admin dashboard
+            } else {
+                document.getElementById('login-message').innerText = 'Invalid credentials!';
+                document.getElementById('login-message').classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

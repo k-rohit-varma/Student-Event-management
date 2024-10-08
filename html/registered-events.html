@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registered Events</title>
+    <link rel="stylesheet" href="../css/registered-events.css">
+</head>
+<body>
+    <div class="container">
+        <button onclick="logout()" class="logout-button">Logout</button>
+        <h1>Registered Events</h1>
+        <div id="registered-events-list"></div>
+        <button onclick="goBack()" class="back-button">Back to Events</button>
+    </div>
+    
+    <script>
+        function logout() {
+            localStorage.removeItem('studentEmail'); // Clear email on logout
+            window.location.href = 'home.html'; // Redirect to home page
+        }
+
+        function goBack() {
+            window.location.href = 'user.html'; // Redirect back to user page
+        }
+
+        // Display registered events
+        const email = localStorage.getItem('studentEmail');
+        const registeredEvents = JSON.parse(localStorage.getItem('registeredEvents')) || {};
+        const registeredEventsList = document.getElementById('registered-events-list');
+
+        // Filter registrations by email
+        const studentRegistrations = Object.keys(registeredEvents)
+            .filter(key => key.startsWith(email)) // Filter by student email
+            .map(key => registeredEvents[key].eventName);
+
+        if (studentRegistrations.length === 0) {
+            registeredEventsList.innerHTML = '<p>No registered events found.</p>';
+        } else {
+            studentRegistrations.forEach(eventName => {
+                const eventDiv = document.createElement('div');
+                eventDiv.classList.add('registered-event');
+                eventDiv.innerHTML = `<p>${eventName}</p>`;
+                registeredEventsList.appendChild(eventDiv);
+            });
+        }
+    </script>
+</body>
+</html>

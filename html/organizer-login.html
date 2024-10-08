@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Organizer Login</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/organizer-login.css"> <!-- Link to organizer login styles -->
+</head>
+<body>
+    <div class="container">
+        <h1>Event Organizer Login</h1>
+        <form id="organizer-login-form">
+            <label for="organizer-name">Username:</label>
+            <input type="text" id="organizer-name" name="organizer-name" required>
+
+            <label for="organizer-password">Password:</label>
+            <input type="password" id="organizer-password" name="organizer-password" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <p id="login-message" class="hidden"></p>
+    </div>
+
+    <script>
+        document.getElementById('organizer-login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const organizerName = document.getElementById('organizer-name').value;
+            const organizerPassword = document.getElementById('organizer-password').value;
+
+            // Retrieve organizers from local storage
+            const organizers = JSON.parse(localStorage.getItem('organizers')) || [];
+
+            // Check credentials
+            const organizer = organizers.find(org => org.name === organizerName && org.password === organizerPassword);
+
+            if (organizer) {
+                // Successful login, redirect to add-event.html
+                window.location.href = 'add-event.html'; // Redirect to the add-event page
+            } else {
+                document.getElementById('login-message').innerText = 'Invalid username or password!';
+                document.getElementById('login-message').classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

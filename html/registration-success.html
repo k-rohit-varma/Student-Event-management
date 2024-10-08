@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Success</title>
+    <link rel="stylesheet" href="../css/register-success.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Registration Successful</h1>
+        <p id="message"></p>
+        <p>Total Events Registered: <span id="event-count">0</span></p>
+        <a href="user.html" class="home-button">Back to Events</a>
+    </div>
+    <script>
+        // Get URL parameters
+        const params = new URLSearchParams(window.location.search);
+        const eventName = params.get('event');
+        const email = localStorage.getItem('studentEmail'); // Get logged in student's email
+
+        // Check if event name exists
+        if (eventName && email) {
+            document.getElementById('message').innerText = `You have successfully registered for "${decodeURIComponent(eventName)}" as ${email}.`;
+
+            // Store registered event with email
+            const registrationKey = `${email}-${eventName}`;
+            const registrations = JSON.parse(localStorage.getItem('registeredEvents')) || {};
+
+            // Store registration details
+            registrations[registrationKey] = { eventName };
+            localStorage.setItem('registeredEvents', JSON.stringify(registrations));
+
+            // Increment the event count (use localStorage for persistence)
+            const eventCount = Object.keys(registrations).filter(key => key.startsWith(email)).length;
+            document.getElementById('event-count').innerText = eventCount;
+        } else {
+            document.getElementById('message').innerText = "Registration failed. No event data found.";
+        }
+    </script>
+</body>
+</html>

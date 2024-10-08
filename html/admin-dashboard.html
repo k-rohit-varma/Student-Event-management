@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <h2>Manage Event Organizers</h2>
+        
+        <form id="organizer-form">
+            <label for="organizer-name">Organizer Name:</label>
+            <input type="text" id="organizer-name" name="organizer-name" required>
+
+            <label for="organizer-password">Organizer Password:</label>
+            <input type="password" id="organizer-password" name="organizer-password" required>
+
+            <button type="submit">Add Organizer</button>
+        </form>
+
+        <h3>Current Organizers:</h3>
+        <ul id="organizer-list"></ul>
+        <a href="home.html" class="logout-button">Logout</a>
+    </div>
+
+    <script>
+        const organizerListContainer = document.getElementById('organizer-list');
+        let organizers = JSON.parse(localStorage.getItem('organizers')) || [];
+
+        // Load existing organizers from local storage
+        function loadOrganizers() {
+            organizerListContainer.innerHTML = ''; // Clear existing list
+            organizers.forEach((org, index) => {
+                const li = document.createElement('li');
+                li.innerText = org.name; // Display organizer name
+
+                // Create delete button
+                const deleteButton = document.createElement('button');
+                deleteButton.innerText = 'Delete';
+                deleteButton.onclick = function() {
+                    deleteOrganizer(index);
+                };
+
+                li.appendChild(deleteButton);
+                organizerListContainer.appendChild(li);
+            });
+        }
+
+        // Function to delete an organizer
+        function deleteOrganizer(index) {
+            organizers.splice(index, 1); // Remove the organizer from the array
+            localStorage.setItem('organizers', JSON.stringify(organizers)); // Update local storage
+            loadOrganizers(); // Reload the organizers list
+        }
+
+        document.getElementById('organizer-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const organizerName = document.getElementById('organizer-name').value;
+            const organizerPassword = document.getElementById('organizer-password').value;
+
+            // Store organizer with password
+            organizers.push({ name: organizerName, password: organizerPassword });
+            localStorage.setItem('organizers', JSON.stringify(organizers));
+
+            // Add to list
+            loadOrganizers(); // Reload the organizers list
+            document.getElementById('organizer-form').reset();
+        });
+
+        loadOrganizers(); // Initial load of organizers
+    </script>
+</body>
+</html>

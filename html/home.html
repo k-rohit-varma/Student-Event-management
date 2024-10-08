@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Event Management System</title>
+    <link rel="stylesheet" href="../css/home.css">
+</head>
+<body>
+    <header>
+        <h1>Student Extra Curricular activity Management System</h1>
+        
+        <div>
+            <label for="user-role">Choose Role:</label>
+            <select id="user-role">
+                <option value="admin">Admin</option>
+                <option value="organizer">Event Organizer</option>
+                <option value="student">Student</option>
+            </select>
+            <button onclick="redirectToLogin()">Login</button>
+        </div>
+    </header>
+    
+    <main>
+        <section>
+            <h2>About the System</h2>
+            <p>
+                The Student Extra Curricular activity  Management System is designed to facilitate the organization, management, and participation in various student events. 
+                It serves as a platform where students can view upcoming events, register for participation, and receive notifications about event updates.
+            </p>
+        </section>
+
+        <section>
+            <h2>How It Helps</h2>
+            <ul>
+                <li>Streamlines event registration and management.</li>
+                <li>Provides a centralized platform for all event-related information.</li>
+                <li>Enhances student engagement through easy access to events.</li>
+                <li>Enables real-time updates and notifications.</li>
+                <li>Facilitates collaboration among student organizations.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>How It Works</h2>
+            <p>
+                Users can register on the platform and create profiles. Once logged in, students can browse events, sign up for activities, and manage their registrations. 
+                Organizers can create and manage events, track registrations, and communicate with participants through the system.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Student Event Management System</p>
+    </footer>
+
+    <script>
+        function redirectToLogin() {
+            const role = document.getElementById('user-role').value;
+            let loginPage;
+
+            switch(role) {
+                case 'admin':
+                    loginPage = 'adminlogin.html'; // Admin login page
+                    break;
+                case 'organizer':
+                    loginPage = 'organizer-login.html'; // Event Organizer login page
+                    break;
+                case 'student':
+                    loginPage = 'login.html'; // Student login page
+                    break;
+                default:
+                    loginPage = 'login.html'; // Default login
+            }
+
+            window.location.href = loginPage;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+/* Base styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Container styling */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Headings */
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #007BFF;
+    margin-top: 20px;
+}
+
+/* Event details */
+.event-details {
+    margin-bottom: 30px;
+}
+
+.event {
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #fafafa;
+    transition: background-color 0.3s;
+}
+
+.event:hover {
+    background: #f1f8ff;
+}
+
+.event h3 {
+    margin: 0 0 10px;
+    color: #0056b3;
+}
+
+/* Labels and inputs */
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input[type="text"],
+input[type="email"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+select:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Buttons */
+button,
+.register-button,
+.home-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover,
+.register-button:hover,
+.home-button:hover {
+    background-color: #218838;
+    transform: scale(1.02);
+}
+
+/* Link styles */
+.register-button {
+    background-color: #007BFF;
+}
+
+.register-button:hover {
+    background-color: #0056b3;
+}
+
+/* Success message styles */
+#message {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    button,
+    .register-button,
+    .home-button {
+        font-size: 14px;
+    }
+}
